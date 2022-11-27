@@ -3,6 +3,7 @@
 Steps :
 - composer install
 - cp .env.example .env
+- php artisan sail:install
 - ./vendor/bin/sail up
 - ./vendor/bin/sail artisan key:generate
 - ./vendor/bin/sail artisan migrate
