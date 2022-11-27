@@ -18,6 +18,8 @@ class EmailPost extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
         'post_id',

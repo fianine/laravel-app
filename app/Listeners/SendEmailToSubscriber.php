@@ -45,17 +45,15 @@ class SendEmailToSubscriber implements ShouldQueue
             $user = User::find($data->user_id);
 
             if (empty($emailPost)) {
-                continue;
+                $emailPost = new EmailPost();
+                $emailPost->id = Str::uuid();
+                $emailPost->post_id = $post->id;
+                $emailPost->user_id = $user->id;
+                $emailPost->status = 1;
+                $emailPost->save();
+
+                Mail::to($user->email)->send(new SubscriptionEmail($post));
             }
-
-            EmailPost::create([
-                'id' => Str::uuid(),
-                'post_id' => $post->id,
-                'user_id' => $data->user_id,
-                'status' => 1
-            ]);
-
-            Mail::to($user->email)->send(new SubscriptionEmail($post));
         }
     }
 }
